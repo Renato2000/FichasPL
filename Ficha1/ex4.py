@@ -1,10 +1,20 @@
 import re
 
-inputFromUser = input(">> ")
-while inputFromUser != "":
-    y = re.search(r'\d{2}((-\d{2}){3}|:(\d{2}){3}|(...\d{2}){3})', inputFromUser)
-    if y:
-        print("válido")
-    else:
-        print("inválido")
-    inputFromUser = input(">> ")
+matricula = re.compile(r'(\b((\d\d\.{3}){3}|(\d\d-){3}|(\d\d:){3})\d\d\b)')
+#matricula = re.compile(r'\d{2}((-|:|\.\.\.)\d{2}){3}')
+
+matriculas = []
+
+linha = input(">> ")
+
+while(linha):
+    res = matricula.findall(linha)
+    if res:
+        for (m,_,_,_,_) in res:
+            matriculas.append(m)
+            #print(m)
+
+    print("Encontrei ", len(matriculas), " que são: ", matriculas)
+    matriculas = []
+
+    linha = input(">> ")
