@@ -1,7 +1,6 @@
 import re
 
-matricula = re.compile(r'(\b((\d\d\.{3}){3}|(\d\d-){3}|(\d\d:){3})\d\d\b)')
-#matricula = re.compile(r'\d{2}((-|:|\.\.\.)\d{2}){3}')
+matricula = re.compile(r'(\d{2}((\.\.\.|-|:)\d{2}){3})')
 
 matriculas = []
 
@@ -10,7 +9,7 @@ linha = input(">> ")
 while(linha):
     res = matricula.findall(linha)
     if res:
-        for (m,_,_,_,_) in res:
+        for (m,_,_) in res:
             matriculas.append(m)
             #print(m)
 
