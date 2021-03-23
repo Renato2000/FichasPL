@@ -38,18 +38,23 @@ def xml2html(docXML):
 
     docHTML = re.sub(
         r'<autores>((.|\n)*)</autores>',
-        r'''      
-        <h3>Autores</h3>
-        <ul>\1
-        </ul>''',
+        r'<h3>Autores</h3>\n<ul>\1</ul>',
         docHTML   
     )
 
-    docHTML = re.sub(
-        r'\b<autor>((.|\n)*)</autor>\b',
-        r'<li>\1</li>',
-        docHTML   
-    )
+    while re.search(r'<autor>\s*((.|\n)*?)<\/autor>', docHTML): # o '?' torna a operação lazy(come o mínimo de caracteres possível) em vez de eager(tenta comer o máximo de caracters possível)
+        docHTML = re.sub(r'<autor>((.|\n)*?)</autor>',
+                         r'''    <li>\1   </li>''',
+                         docHTML   
+                         )
+
+    docHTML = re.sub(r'<nome>\s*', r'', docHTML)
+    docHTML = re.sub(r'\s*<\/nome>\s*', r'', docHTML)
+    docHTML = re.sub(r'<numero>\s*', r'', docHTML)
+    docHTML = re.sub(r'\s*<\/numero>\s*', r'', docHTML)
+    docHTML = re.sub(r'<email>\s*', r'', docHTML)
+    docHTML = re.sub(r'\s*<\/email>\s*', r'', docHTML)
+
 
     docHTML = re.sub(
         r'<descricao>((.|\n)*)</descricao>',
@@ -64,7 +69,5 @@ def xml2html(docXML):
 with open("relatorio.xml") as f:
     conteudo = f.read()
     xml2html(conteudo)
-
-
 
 
