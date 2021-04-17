@@ -1,7 +1,0 @@
-ELE=Nestor
-EU=Creissac
-
-ELE: 1234
-EU: AAAA
-ELE: ---ELE
-EU: a1a2EU
