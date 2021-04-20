@@ -7,7 +7,7 @@ from calc_lex import tokens
 def p_Comando_ler(p):
     "Comando : '?' id"
     valor = input("Introduza um valor inteiro: ")
-    p.parser.registers.update({p[2], int(valor)})
+    p.parser.registers.update({p[2] : int(valor)})
 
 def p_Comando_escrever(p):
     "Comando : '!' Exp"
