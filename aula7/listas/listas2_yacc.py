@@ -1,6 +1,6 @@
 # listas-yacc.py
 #
-# Listas geterogéneos: inteiros e alfanuméricos
+# Listas heterogéneos: inteiros e alfanuméricos
 #
 # [78]
 # [1, 2, 3]
