@@ -1,0 +1,185 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> Lista
+Rule 1     Lista -> Seccoes
+Rule 2     Seccoes -> Seccoes Seccao
+Rule 3     Seccoes -> <empty>
+Rule 4     Seccao -> ID : Produtos
+Rule 5     Produtos -> Produto
+Rule 6     Produtos -> Produtos Produto
+Rule 7     Produto -> - INT SEP ID SEP FLOAT SEP INT ;
+
+Terminals, with rules where they appear
+
+-                    : 7
+:                    : 4
+;                    : 7
+FLOAT                : 7
+ID                   : 4 7
+INT                  : 7 7
+SEP                  : 7 7 7
+error                : 
+
+Nonterminals, with rules where they appear
+
+Lista                : 0
+Produto              : 5 6
+Produtos             : 4 6
+Seccao               : 2
+Seccoes              : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Lista
+    (1) Lista -> . Seccoes
+    (2) Seccoes -> . Seccoes Seccao
+    (3) Seccoes -> .
+
+    ID              reduce using rule 3 (Seccoes -> .)
+    $end            reduce using rule 3 (Seccoes -> .)
+
+    Lista                          shift and go to state 1
+    Seccoes                        shift and go to state 2
+
+state 1
+
+    (0) S' -> Lista .
+
+
+
+state 2
+
+    (1) Lista -> Seccoes .
+    (2) Seccoes -> Seccoes . Seccao
+    (4) Seccao -> . ID : Produtos
+
+    $end            reduce using rule 1 (Lista -> Seccoes .)
+    ID              shift and go to state 4
+
+    Seccao                         shift and go to state 3
+
+state 3
+
+    (2) Seccoes -> Seccoes Seccao .
+
+    ID              reduce using rule 2 (Seccoes -> Seccoes Seccao .)
+    $end            reduce using rule 2 (Seccoes -> Seccoes Seccao .)
+
+
+state 4
+
+    (4) Seccao -> ID . : Produtos
+
+    :               shift and go to state 5
+
+
+state 5
+
+    (4) Seccao -> ID : . Produtos
+    (5) Produtos -> . Produto
+    (6) Produtos -> . Produtos Produto
+    (7) Produto -> . - INT SEP ID SEP FLOAT SEP INT ;
+
+    -               shift and go to state 8
+
+    Produtos                       shift and go to state 6
+    Produto                        shift and go to state 7
+
+state 6
+
+    (4) Seccao -> ID : Produtos .
+    (6) Produtos -> Produtos . Produto
+    (7) Produto -> . - INT SEP ID SEP FLOAT SEP INT ;
+
+    ID              reduce using rule 4 (Seccao -> ID : Produtos .)
+    $end            reduce using rule 4 (Seccao -> ID : Produtos .)
+    -               shift and go to state 8
+
+    Produto                        shift and go to state 9
+
+state 7
+
+    (5) Produtos -> Produto .
+
+    -               reduce using rule 5 (Produtos -> Produto .)
+    ID              reduce using rule 5 (Produtos -> Produto .)
+    $end            reduce using rule 5 (Produtos -> Produto .)
+
+
+state 8
+
+    (7) Produto -> - . INT SEP ID SEP FLOAT SEP INT ;
+
+    INT             shift and go to state 10
+
+
+state 9
+
+    (6) Produtos -> Produtos Produto .
+
+    -               reduce using rule 6 (Produtos -> Produtos Produto .)
+    ID              reduce using rule 6 (Produtos -> Produtos Produto .)
+    $end            reduce using rule 6 (Produtos -> Produtos Produto .)
+
+
+state 10
+
+    (7) Produto -> - INT . SEP ID SEP FLOAT SEP INT ;
+
+    SEP             shift and go to state 11
+
+
+state 11
+
+    (7) Produto -> - INT SEP . ID SEP FLOAT SEP INT ;
+
+    ID              shift and go to state 12
+
+
+state 12
+
+    (7) Produto -> - INT SEP ID . SEP FLOAT SEP INT ;
+
+    SEP             shift and go to state 13
+
+
+state 13
+
+    (7) Produto -> - INT SEP ID SEP . FLOAT SEP INT ;
+
+    FLOAT           shift and go to state 14
+
+
+state 14
+
+    (7) Produto -> - INT SEP ID SEP FLOAT . SEP INT ;
+
+    SEP             shift and go to state 15
+
+
+state 15
+
+    (7) Produto -> - INT SEP ID SEP FLOAT SEP . INT ;
+
+    INT             shift and go to state 16
+
+
+state 16
+
+    (7) Produto -> - INT SEP ID SEP FLOAT SEP INT . ;
+
+    ;               shift and go to state 17
+
+
+state 17
+
+    (7) Produto -> - INT SEP ID SEP FLOAT SEP INT ; .
+
+    -               reduce using rule 7 (Produto -> - INT SEP ID SEP FLOAT SEP INT ; .)
+    ID              reduce using rule 7 (Produto -> - INT SEP ID SEP FLOAT SEP INT ; .)
+    $end            reduce using rule 7 (Produto -> - INT SEP ID SEP FLOAT SEP INT ; .)
+
