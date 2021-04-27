@@ -1,49 +1,49 @@
 # calc_yacc
 
 import ply.yacc as yacc
-from calc_lex import tokens
+from sexp_lex import tokens
 
 # Production rules
 def p_Comando_ler(p):
-    "Comando : '?' id"
+    "Comando : '(' READ id ')'"
     valor = input("Introduza um valor inteiro: ")
-    p.parser.registers.update({p[2] : int(valor)})
+    p.parser.registers.update({p[3] : int(valor)})
 
 def p_Comando_escrever(p):
-    "Comando : '!' Exp"
-    print(p[2])
+    "Comando : '(' PRINT Exp ')'"
+    print(p[3])
 
 def p_Comando_atrib(p):
-    "Comando : id '=' Exp"
-    p.parser.registers.update({p[1] : p[3]})
+    "Comando : '(' SET id Exp ')'"
+    p.parser.registers.update({p[3] : p[4]})
 
 def p_Comando_despejar(p):
-    "Comando : '!' '!'"
+    "Comando : '(' DUMP ')'"
     print(p.parser.registers)
 
 def p_Exp_add(p):
-    "Exp : Exp '+' Termo"
-    p[0] = p[1] + p[3]
+    "Exp : '(' ADD Exp Termo ')'"
+    p[0] = p[3] + p[4]
 
 def p_Exp_sub(p):
-    "Exp : Exp '-' Termo"
-    p[0] = p[1] - p[3]
+    "Exp : '(' SUB Exp Termo ')'"
+    p[0] = p[3] - p[4]
 
 def p_Exp_termo(p):
     "Exp : Termo"
     p[0] = p[1]
 
 def p_Termo_mul(p):
-    "Termo : Termo '*' Fator"
-    p[0] = p[1] * p[3]
+    "Exp : '(' MUL Termo Fator ')'"
+    p[0] = p[3] * p[4]
 
 def p_Termo_div(p):
-    "Termo : Termo '/' Fator"
-    if(p[3] != 0):
-        p[0] = p[1] / p[3]
+    "Termo : '(' DIV Termo Fator ')'"
+    if(p[4] != 0):
+        p[0] = p[3] / p[4]
     else: 
-        print("Erro: divisão por 0. A continuar com o dividendo: ", p[1])
-        p[0] = p[1]
+        print("Erro: divisão por 0. A continuar com o dividendo: ", p[3])
+        p[0] = p[3]
 
 def p_Termo_fator(p):
     "Termo : Fator"

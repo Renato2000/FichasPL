@@ -1,0 +1,150 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> Capicua
+Rule 1     Capicua -> zero ContZ
+Rule 2     Capicua -> um ContU
+Rule 3     Capicua -> <empty>
+Rule 4     ContZ -> Capicua zero
+Rule 5     ContZ -> <empty>
+Rule 6     ContU -> Capicua um
+Rule 7     ContU -> <empty>
+
+Terminals, with rules where they appear
+
+error                : 
+um                   : 2 6
+zero                 : 1 4
+
+Nonterminals, with rules where they appear
+
+Capicua              : 4 6 0
+ContU                : 2
+ContZ                : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Capicua
+    (1) Capicua -> . zero ContZ
+    (2) Capicua -> . um ContU
+    (3) Capicua -> .
+
+    zero            shift and go to state 2
+    um              shift and go to state 3
+    $end            reduce using rule 3 (Capicua -> .)
+
+    Capicua                        shift and go to state 1
+
+state 1
+
+    (0) S' -> Capicua .
+
+
+
+state 2
+
+    (1) Capicua -> zero . ContZ
+    (4) ContZ -> . Capicua zero
+    (5) ContZ -> .
+    (1) Capicua -> . zero ContZ
+    (2) Capicua -> . um ContU
+    (3) Capicua -> .
+
+  ! shift/reduce conflict for zero resolved as shift
+  ! shift/reduce conflict for um resolved as shift
+  ! shift/reduce conflict for zero resolved as shift
+    $end            reduce using rule 5 (ContZ -> .)
+    zero            shift and go to state 2
+    um              shift and go to state 3
+
+  ! zero            [ reduce using rule 5 (ContZ -> .) ]
+  ! um              [ reduce using rule 5 (ContZ -> .) ]
+  ! zero            [ reduce using rule 3 (Capicua -> .) ]
+
+    ContZ                          shift and go to state 4
+    Capicua                        shift and go to state 5
+
+state 3
+
+    (2) Capicua -> um . ContU
+    (6) ContU -> . Capicua um
+    (7) ContU -> .
+    (1) Capicua -> . zero ContZ
+    (2) Capicua -> . um ContU
+    (3) Capicua -> .
+
+  ! shift/reduce conflict for zero resolved as shift
+  ! shift/reduce conflict for um resolved as shift
+  ! shift/reduce conflict for um resolved as shift
+    $end            reduce using rule 7 (ContU -> .)
+    zero            shift and go to state 2
+    um              shift and go to state 3
+
+  ! zero            [ reduce using rule 7 (ContU -> .) ]
+  ! um              [ reduce using rule 7 (ContU -> .) ]
+  ! um              [ reduce using rule 3 (Capicua -> .) ]
+
+    ContU                          shift and go to state 6
+    Capicua                        shift and go to state 7
+
+state 4
+
+    (1) Capicua -> zero ContZ .
+
+    $end            reduce using rule 1 (Capicua -> zero ContZ .)
+    zero            reduce using rule 1 (Capicua -> zero ContZ .)
+    um              reduce using rule 1 (Capicua -> zero ContZ .)
+
+
+state 5
+
+    (4) ContZ -> Capicua . zero
+
+    zero            shift and go to state 8
+
+
+state 6
+
+    (2) Capicua -> um ContU .
+
+    $end            reduce using rule 2 (Capicua -> um ContU .)
+    zero            reduce using rule 2 (Capicua -> um ContU .)
+    um              reduce using rule 2 (Capicua -> um ContU .)
+
+
+state 7
+
+    (6) ContU -> Capicua . um
+
+    um              shift and go to state 9
+
+
+state 8
+
+    (4) ContZ -> Capicua zero .
+
+    $end            reduce using rule 4 (ContZ -> Capicua zero .)
+    zero            reduce using rule 4 (ContZ -> Capicua zero .)
+    um              reduce using rule 4 (ContZ -> Capicua zero .)
+
+
+state 9
+
+    (6) ContU -> Capicua um .
+
+    $end            reduce using rule 6 (ContU -> Capicua um .)
+    zero            reduce using rule 6 (ContU -> Capicua um .)
+    um              reduce using rule 6 (ContU -> Capicua um .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for zero in state 2 resolved as shift
+WARNING: shift/reduce conflict for um in state 2 resolved as shift
+WARNING: shift/reduce conflict for zero in state 2 resolved as shift
+WARNING: shift/reduce conflict for zero in state 3 resolved as shift
+WARNING: shift/reduce conflict for um in state 3 resolved as shift
+WARNING: shift/reduce conflict for um in state 3 resolved as shift
